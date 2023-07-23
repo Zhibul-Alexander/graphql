@@ -2,6 +2,7 @@ import {Type} from '@fastify/type-provider-typebox';
 import {GraphQLObjectType, GraphQLList, GraphQLSchema} from 'graphql';
 
 import {UserType, CreateUserInputType, ChangeUserInputType} from './types/user.js';
+import {MemberType, MemberTypeIdEnum} from './types/member.js';
 import {UUIDType} from './types/uuid.js';
 
 export const gqlResponseSchema = Type.Partial(
@@ -33,6 +34,13 @@ const Query = new GraphQLObjectType({
             },
         },
         users: {type: new GraphQLList(UserType)},
+        member: {
+            type: MemberType,
+            args: {
+                id: {type: MemberTypeIdEnum!},
+            },
+        },
+        members: {type: new GraphQLList(MemberType)},
     },
 });
 
