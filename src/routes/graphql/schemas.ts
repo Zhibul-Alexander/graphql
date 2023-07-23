@@ -4,6 +4,7 @@ import {GraphQLObjectType, GraphQLList, GraphQLSchema} from 'graphql';
 import {UserType, CreateUserInputType, ChangeUserInputType} from './types/user.js';
 import {MemberType, MemberTypeIdEnum} from './types/member.js';
 import {PostType, CreatePostInputType, ChangePostInputType} from './types/post.js';
+import {ProfileType, CreateProfileInputType, ChangeProfileInputType} from './types/profile.js';
 
 import {UUIDType} from './types/uuid.js';
 
@@ -50,6 +51,15 @@ const Query = new GraphQLObjectType({
             },
         },
         posts: {type: new GraphQLList(PostType)},
+        profile: {
+            type: ProfileType,
+            args: {
+                id: {type: UUIDType!},
+            },
+        },
+        profiles: {
+            type: new GraphQLList(ProfileType),
+        },
     },
 });
 
@@ -89,6 +99,25 @@ const Mutation = new GraphQLObjectType({
             },
         },
         deletePost: {
+            type: UUIDType,
+            args: {
+                id: {type: UUIDType!},
+            },
+        },
+        createProfile: {
+            type: ProfileType,
+            args: {
+                dto: {type: CreateProfileInputType},
+            },
+        },
+        changeProfile: {
+            type: ProfileType,
+            args: {
+                id: {type: UUIDType!},
+                dto: {type: ChangeProfileInputType},
+            },
+        },
+        deleteProfile: {
             type: UUIDType,
             args: {
                 id: {type: UUIDType!},
