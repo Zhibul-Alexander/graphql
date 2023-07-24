@@ -37,13 +37,13 @@ const Query = new GraphQLObjectType({
             },
         },
         users: {type: new GraphQLList(UserType)},
-        member: {
+        memberType: {
             type: MemberType,
             args: {
-                id: {type: MemberTypeIdEnum!},
+                id: {type: MemberTypeIdEnum},
             },
         },
-        members: {type: new GraphQLList(MemberType)},
+        memberTypes: {type: new GraphQLList(MemberType)},
         post: {
             type: PostType,
             args: {
@@ -126,4 +126,13 @@ const Mutation = new GraphQLObjectType({
     },
 });
 
-export const schema = new GraphQLSchema({query: Query, mutation: Mutation});
+export const schema = new GraphQLSchema({
+    query: Query,
+    mutation: Mutation,
+    types: [
+        UserType, CreateUserInputType, ChangeUserInputType,
+        MemberType, MemberTypeIdEnum,
+        PostType, CreatePostInputType, ChangePostInputType,
+        ProfileType, CreateProfileInputType, ChangeProfileInputType,
+    ],
+});

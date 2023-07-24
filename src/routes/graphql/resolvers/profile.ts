@@ -3,6 +3,9 @@ import {PrismaClient} from '@prisma/client';
 import {ID, Context} from '../types/index.js';
 import {ProfileInput} from '../types/profile.js';
 
+import {MemberTypeId} from '../../member-types/schemas.js';
+
+
 const prisma = new PrismaClient();
 
 export const getProfile = async (args: ID) => {
@@ -11,6 +14,14 @@ export const getProfile = async (args: ID) => {
 
 export const getProfiles = async () => {
     return await prisma.profile.findMany();
+};
+
+export const getProfileByUserId = async (userId: string, {prisma}: Context) => {
+    return await prisma.profile.findUnique({where: {userId}});
+};
+
+export const getProfilesByMemberTypeId = async (memberTypeId: MemberTypeId, {prisma}: Context) => {
+    return await prisma.profile.findMany({where: {memberTypeId}});
 };
 
 export const createProfile = async ({dto: data}: { dto: ProfileInput }, {prisma}: Context) => {
