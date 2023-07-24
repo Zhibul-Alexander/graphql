@@ -1,15 +1,15 @@
 import {PrismaClient} from '@prisma/client';
 
-import {ID, Context} from '../types/index.js';
+import {ID, Context, EmptyRecord} from '../types/index.js';
 import {PostInput} from '../types/post.js';
 
 const prisma = new PrismaClient();
 
-export const getPost = async ({id}: ID) => {
+export const getPost = async ({id}: ID, {prisma}: Context) => {
     return await prisma.post.findUnique({where: {id}});
 };
 
-export const getPosts = async () => {
+export const getPosts = async (empty: EmptyRecord, {prisma}: Context) => {
     return await prisma.post.findMany();
 };
 

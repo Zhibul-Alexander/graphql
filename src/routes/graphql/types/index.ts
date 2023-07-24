@@ -9,3 +9,8 @@ export type EmptyRecord = Record<string | number | symbol, never>;
 export interface ID {
     id: string;
 };
+
+export interface UserSubscription {
+    userId: string;
+    authorId: string;
+}
