@@ -40,7 +40,7 @@ const Query = new GraphQLObjectType({
         memberType: {
             type: MemberType,
             args: {
-                id: {type: MemberTypeIdEnum},
+                id: {type: MemberTypeIdEnum!},
             },
         },
         memberTypes: {type: new GraphQLList(MemberType)},
@@ -59,20 +59,6 @@ const Query = new GraphQLObjectType({
         },
         profiles: {
             type: new GraphQLList(ProfileType),
-        },
-        subscribeTo: {
-            type: UserType,
-            args: {
-                userId: {type: UUIDType!},
-                authorId: {type: UUIDType!},
-            },
-        },
-        unsubscribeFrom: {
-            type: GraphQLString,
-            args: {
-                userId: {type: UUIDType!},
-                authorId: {type: UUIDType!},
-            },
         },
     },
 });
@@ -135,6 +121,20 @@ const Mutation = new GraphQLObjectType({
             type: UUIDType,
             args: {
                 id: {type: UUIDType!},
+            },
+        },
+        subscribeTo: {
+            type: UserType,
+            args: {
+                userId: {type: UUIDType!},
+                authorId: {type: UUIDType!},
+            },
+        },
+        unsubscribeFrom: {
+            type: GraphQLString,
+            args: {
+                userId: {type: UUIDType!},
+                authorId: {type: UUIDType!},
             },
         },
     },
